@@ -32,3 +32,30 @@ class Expanse {
     return datetime.format(date);
   }
 }
+
+class ExpenseBucket {
+  final Category category;
+  final List<Expanse> expenses;
+
+  ExpenseBucket(
+    this.category,
+    this.expenses,
+  );
+
+  ExpenseBucket.forCategory(
+    List<Expanse> allExpenses,
+    this.category,
+  ) : expenses = allExpenses
+            .where(
+              (element) => element.category == category,
+            )
+            .toList();
+
+  double get totlaExpenses {
+    double sum = 0;
+    for (var element in expenses) {
+      sum += element.amount;
+    }
+    return sum;
+  }
+}

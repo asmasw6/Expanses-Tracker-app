@@ -1,3 +1,4 @@
+import 'package:expenses/chart/chart.dart';
 import 'package:expenses/models/expanse.dart';
 import 'package:expenses/widgets/expenses_list/expanses_list.dart';
 import 'package:expenses/widgets/new_expanse.dart';
@@ -30,6 +31,13 @@ class _ExpansesState extends State<Expanses> {
     setState(() {
       _registeredExpenses.add(expanse);
     });
+
+  }
+
+  void removeExpanse(Expanse expanse) {
+    setState(() {
+      _registeredExpenses.remove(expanse);
+    });
   }
 
   @override
@@ -55,9 +63,12 @@ class _ExpansesState extends State<Expanses> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Chart(expenses: _registeredExpenses),
             Expanded(
               child: ExpanesesList(
+                onRemoveExpanse: removeExpanse,
                 expanses: _registeredExpenses,
+
               ),
             )
           ],

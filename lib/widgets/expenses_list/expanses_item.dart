@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:expenses/models/expanse.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +19,11 @@ class ExpanseItem extends StatelessWidget {
             horizontal: 20,
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 expanse.title,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(
                 height: 4,
