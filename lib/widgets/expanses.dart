@@ -26,6 +26,12 @@ class _ExpansesState extends State<Expanses> {
     ),
   ];
 
+  void addExpanse(Expanse expanse) {
+    setState(() {
+      _registeredExpenses.add(expanse);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,13 +43,12 @@ class _ExpansesState extends State<Expanses> {
               showModalBottomSheet(
                 context: context,
                 builder: (context) {
-                  return const NewExpanse();
+                  return  NewExpanse(onAddExpanse: addExpanse ,);
                 },
               );
             },
             icon: const Icon(Icons.add),
           ),
-          Icon(Icons.add),
         ],
       ),
       body: Center(
