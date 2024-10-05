@@ -19,7 +19,7 @@ class ExpanesesList extends StatelessWidget {
       itemBuilder: (context, index) {
         return Dismissible(
           background: Container(
-            color: Theme.of(context).colorScheme.error.withOpacity(0.85),
+            color: Theme.of(context).colorScheme.error.withAlpha((0.85 * 255).toInt()),
             margin: EdgeInsets.symmetric(
               horizontal: Theme.of(context).cardTheme.margin!.horizontal,
             ),

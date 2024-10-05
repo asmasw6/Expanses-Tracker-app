@@ -17,6 +17,7 @@ class ChartBar extends StatelessWidget {
           horizontal: 4,
         ),
         child: FractionallySizedBox(
+          heightFactor: fill,
           child: DecoratedBox(
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.vertical(
@@ -27,8 +28,7 @@ class ChartBar extends StatelessWidget {
                       : Theme.of(context)
                           .colorScheme
                           .primary
-                          .withOpacity(0.6))),
-          heightFactor: fill,
+                          .withAlpha((0.6 * 255).toInt()))),
         ),
       ),
     );

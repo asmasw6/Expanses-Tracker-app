@@ -30,60 +30,68 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
-    return Container(
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      width: double.infinity,
-      height: 175,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        gradient: LinearGradient(
-          colors: [
-            Theme.of(context).colorScheme.primary.withOpacity(0.3),
-            Theme.of(context).colorScheme.primary.withOpacity(0),
-          ],
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
+    return LayoutBuilder(
+      builder: (context, constraints) => Container(
+        margin: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        width: double.infinity,
+        height: constraints.maxHeight,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          gradient: LinearGradient(
+            colors: [
+              Theme.of(context).colorScheme.primary.withAlpha((0.3 * 255).toInt()),
+              Theme.of(context).colorScheme.primary.withAlpha((0 * 255).toInt()),
+            ],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+          ),
         ),
-      ),
-      child: Column(
-        children: [
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                for (final element in buckets)
-                  ChartBar(
-                    fill: element.totlaExpenses == 0
-                        ? 0
-                        : element.totlaExpenses / maxTotalExpense,
-                  ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 12,
-          ),
-          Row(
-            children: buckets
-                .map(
-                  (e) => Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: Icon(
-                        categoryIcons[e.category],
-                        color: isDarkMode
-                            ? Theme.of(context).colorScheme.primary
-                            : Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(0.7),
-                      ),
+        child: Column(
+          children: [
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  for (final element in buckets)
+                    ChartBar(
+                      fill: element.totlaExpenses == 0
+                          ? 0
+                          : element.totlaExpenses / maxTotalExpense,
                     ),
+                ],
+              ),
+            ),
+            constraints.minHeight < 200
+                ? Container()
+                : const SizedBox(
+                    height: 12,
                   ),
-                ).toList(), // Convert to List<Widget>
-          )
-        ],
+            constraints.minHeight < 200
+                ? Container()
+                : Row(
+                    children: buckets
+                        .map(
+                          (e) => Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                              child: Icon(
+                                categoryIcons[e.category],
+                                color: isDarkMode
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Theme.of(context)
+                                        .colorScheme
+                                        .primary
+                                        .withAlpha((0.7 * 255).toInt()),
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(), // Convert to List<Widget>
+                  )
+          ],
+        ),
       ),
     );
   }

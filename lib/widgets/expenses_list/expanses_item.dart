@@ -31,12 +31,12 @@ class ExpanseItem extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "💰 ${expanse.amount.toStringAsFixed(2)}",
+                    "💰 ${expanse.amount.toStringAsFixed(2)}",style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const Spacer(),
                   Row(
                     children: [
-                      Icon(categoryIcons[expanse.category]),
+                      Icon(categoryIcons[expanse.category], color: Theme.of(context).iconTheme.color),
                       const SizedBox(width: 4),
                       Text(expanse.formattedDate),
                     ],
